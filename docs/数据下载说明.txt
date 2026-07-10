@@ -1,0 +1,31 @@
+官网上的数据最多下30天，长了会有网络错误
+
+使用INTERMAGNET的HAPI可下载数据，也不会报错
+
+HAPI 的请求字段大约由以下部分构成:
+	<IAGACode>/<DataType>/<Cadence>/<Components>
+例如
+	aae/definitive/PT1M/native
+<IAGACode>是 IAGA 三字母台站代码，代表某个地磁台站，比如 Addis Ababa。
+<DATAType>是数据质量级别：
+	reported 为原始上报数据，可能没做基线修正，可能有尖峰、缺测
+	adjusted 在 reported 基础上做过修正，如基线、尖峰、缺口
+	quasi-def 准最终数据，较快发布，接近最终值
+	definitive 最终定版数据，经过完整校正、去尖峰、补缺
+	best-avail 服务器帮你选“当前可用的最好数据”
+
+<Cadence> 为时间分辨率的字符串表示，为ISO 8601时间长度写法:
+	如 PT1M 其实是 表示 1分钟为时间周期
+<Components>为分量格式
+	支持 xyzf、hdzf 以及 native ，native为台站原始上报的格式
+
+
+可使用脚本运行:
+python scripts\download_hapi_day.py --date 2024-01-01 --stations VAL --data-type best-avail --overwrited
+基于此还封装了一层多日下载的
+python scripts\download_hapi_range.py --start-date 2023-01-01 --days 365 --stations VAL --overwrite
+又封了一层并发下载的：
+python scripts\download_hapi_2022_europe.py --year 2022 --workers 6
+
+失败项的日志会进到 data\logs\hapi_batch_failures_*.csv
+这时候可以--from-failures 选项指定失败日志重跑

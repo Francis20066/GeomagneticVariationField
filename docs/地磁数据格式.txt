@@ -1,0 +1,81 @@
+数据格式部分
+IAGA2002格式，参考(https://www.ncei.noaa.gov/services/world-data-system/v-dat-working-group/iaga-2002-data-exchange-format)
+全称国际地磁与大气电学协会（IAGA）ASCII 交换格式的信息（International Association of Geomagnetism and Aeronomy (IAGA) ASCII Exchange Format),该格式于 2001 年 8 月通过,故而叫做IAGA2002。
+
+该格式旨在作为来自观测站( observatories)和变速仪站(variometer stations)的地磁数据（样本和平均值）的数据交换格式，时间间隔从毫秒级直到并包括月平均。该格式由以下部分组成：
+
+Twelve (12) mandatory and one (1) optional file header records 十二（12）条强制性和一（1）条可选的文件头记录
+Unlimited optional comment records 无限制的可选注释记录
+One (1) mandatory data header record 一（1）条强制性的数据头记录
+A series of data records 一系列数据记录
+Every record is 70 characters long plus the machine-dependent carriage return / line feed 每条记录长 70 个字符，外加与机器相关的回车/换行
+
+如下所示
+ Format                 IAGA-2002                                    |
+ Source of Data         Met Eireann, the Irish National Meteorologica|
+ Station Name           Valentia, Eire                               |
+ IAGA Code              VAL                                          |
+ Geodetic Latitude      51.933                                       |
+ Geodetic Longitude     349.750                                      |
+ Elevation              0                                            |
+ Reported               XYZF                                         |
+ Sensor Orientation                                                  |
+ Digital Sampling                                                    |
+ Data Interval Type     1-minute                                     |
+ Data Type              Definitive                                   |
+ Publication Date                                                    |
+ # This data file was created using INTERMAGNET data                 |
+ # from the Edinburgh GIN. These data were acquired                  |
+ # from an INTERMAGNET definitive data file.                         |
+ # Final data will be available on the INTERMAGNET CD-ROM            |
+ # Go to www.intermagnet.org for details on obtaining this product.  |
+ # CONDITIONS OF USE: These data are for scientific/academic use.    |
+ # For any other applications see the 'Conditions of Use' published  |
+ # on the INTERMAGNET web site - www.intermagnet.org                 |
+DATE       TIME         DOY     VALX      VALY      VALZ      VALF   |
+2024-01-01 00:00:00.000 001     99999.00  99999.00  99999.00  99999.00
+
+\Sum_t^t (Xt - \hat{Xt})^2
+/m
+
+
+数据记录包含日期、时间和报告的磁场分量。数据按最不重要位报告。
+用与给定分量相应精度的 99999 表示缺失数据（例如 99999.0 或 99999.00）。
+如果某分量未被观测，请在该字段中记录 88888（按相应精度）。
+字段分量的格式为 4(1X, F9.2)。每条记录精确为 70 个字符长，加上与机器相关的回车/换行符。
+
+地磁分量(geomagnetic element，又称地磁要素)格式部分:
+地表某研究点的地磁场强度通常是用向量 T 表示的，每个磁向量都以该研究点为坐标原点。
+
+x轴指向地理北，y轴指向地理东；z轴垂直向下，指向地心。
+在此坐际系中矢量T在水平面的投影与x轴的夹角(即T的方位角)，称为偏磁角(D)。
+矢量T的倾角，称为磁倾角(I)。
+
+D = arctan(Y/X)
+I = arctan(Z/H)
+
+H = sqrt(X^2+Y^2)
+F = sqrt(X^2+Y^2+Z^2) = sqrt(H^2+Z^2)
+
+X = HcosD
+Y=HsinD
+Z = HtanI
+
+据此有两种分量表示整个向量的情况:
+
+xyzf 直角坐标分量，字段为: X, Y, Z, F；
+X表示地磁场北向分量，Y表示地磁场东向分量，Z表示垂直向下分量；F为总场强。
+
+
+hdzf 地磁常用分量, 字段为: H, D, Z, F
+H为水平强度，D为磁偏角，Z为垂直向下分量;F为总场强。
+各分量之间关系如下:
+
+
+ 
+
+
+
+
+
+
