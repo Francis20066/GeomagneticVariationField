@@ -35,6 +35,8 @@ endif()
 target_include_directories(magerr_core
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/geoist_magmod/include
 )
 
 if(MAGERR_BUILD_PYTHON)
