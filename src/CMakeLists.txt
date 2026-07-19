@@ -40,7 +40,11 @@ target_include_directories(magerr_core
 )
 
 if(MAGERR_BUILD_PYTHON)
+  set(PYBIND11_FINDPYTHON ON)
+  find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
   find_package(pybind11 CONFIG REQUIRED)
   pybind11_add_module(magerr_native bindings/python_module.cpp)
   target_link_libraries(magerr_native PRIVATE magerr_core)
+  install(TARGETS magerr_native LIBRARY DESTINATION . RUNTIME DESTINATION .)
+  install(DIRECTORY resources/ DESTINATION resources)
 endif()

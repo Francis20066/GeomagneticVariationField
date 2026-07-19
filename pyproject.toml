@@ -1,0 +1,17 @@
+[build-system]
+requires = ["scikit-build-core>=0.10", "pybind11>=2.12"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "magerr-native"
+version = "0.1.0"
+description = "Native WMM2025 and Swarm MMA magnetic-field module"
+requires-python = ">=3.9"
+
+[tool.scikit-build]
+cmake.source-dir = "src"
+wheel.packages = []
+
+[tool.scikit-build.cmake.define]
+MAGERR_BUILD_PYTHON = "ON"
+MAGERR_USE_BUNDLED_WMM = "ON"
