@@ -11,8 +11,6 @@ GeomagneticVariationField 是一个面向地磁场计算与地磁变化分析的
 - 基础批量查询接口
 - wheel 构建配置
 
-> 说明：本项目使用的是 `pybind11`。如果需求中提到 `pybind3`，这里按“面向 Python 3 的 pybind 模块”理解。
-
 ## 项目结构
 
 ```text
